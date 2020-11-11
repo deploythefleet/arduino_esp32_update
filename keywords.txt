@@ -1,0 +1,2 @@
+DTF_ESP32Update     KEYWORD1
+getFirmwareUpdate   KEYWORD2
