@@ -5,6 +5,7 @@ enum class DTF_UpdateResponse
 {
     UPDATE_FAILED = -1,
     NO_UPDATE_AVAILABLE = 1,
+    UPDATE_SUCCEEDED = 2,
 };
 
 class DTF_ESP32Update
