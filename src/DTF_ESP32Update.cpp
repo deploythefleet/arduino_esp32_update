@@ -94,7 +94,7 @@ DTF_UpdateResponse DTF_ESP32Update::getFirmwareUpdate(const char* updateUrl, con
     switch (ret) {
         case HTTP_UPDATE_FAILED:
             #ifdef DTF_DEBUG
-            Serial.printf("HTTP_UPDATE_FAILED Error (%d): %s\n", ESPhttpUpdate.getLastError(), ESPhttpUpdate.getLastErrorString().c_str());
+            Serial.printf("HTTP_UPDATE_FAILED Error (%d): %s\n", httpUpdate.getLastError(), httpUpdate.getLastErrorString().c_str());
             #endif
             return DTF_UpdateResponse::UPDATE_FAILED;
             break;

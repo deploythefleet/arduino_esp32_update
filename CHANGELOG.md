@@ -8,6 +8,15 @@ This changelog is updated with each release and should contain the following sec
   - **Security**: This notes any security-related changes
 
 ----
+# 1.0.4
+
+### Changed
+  - `setTime` defaults to false. Will not try to set time via NTP by default.
+
+### Fixed
+  - Compiler error when newer versions of arduino_esp32 library is pulled in.
+
+----
 # 1.0.3
 This is the first release tracked in the changelog.
 

@@ -11,7 +11,7 @@ enum class DTF_UpdateResponse
 class DTF_ESP32Update
 {
     public:
-        static DTF_UpdateResponse getFirmwareUpdate(const char* updateUrl, const char* currentVersion, bool setTime = true);   
+        static DTF_UpdateResponse getFirmwareUpdate(const char* updateUrl, const char* currentVersion, bool setTime = false);   
 };
 
 #endif // DTF_ESP32Update_H
