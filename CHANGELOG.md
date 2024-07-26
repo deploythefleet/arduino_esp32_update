@@ -8,6 +8,14 @@ This changelog is updated with each release and should contain the following sec
   - **Security**: This notes any security-related changes
 
 ----
+# 1.0.5
+### Added
+  - Fallback certificate in the event primary pinned cert fails
+
+### Changed
+  - Primary pinned cert is now Let's Encrypt ISRG Root X1 instead of intermediate R3
+
+----
 # 1.0.4
 
 ### Changed
