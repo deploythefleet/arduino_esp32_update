@@ -3,6 +3,7 @@
 #include <HTTPClient.h>
 #include <HTTPUpdate.h>
 #include <time.h>
+#include <WiFiClientSecure.h>
 
 #include "DTF_ESP32Update.h"
 
