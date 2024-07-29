@@ -8,6 +8,11 @@ This changelog is updated with each release and should contain the following sec
   - **Security**: This notes any security-related changes
 
 ----
+# 1.0.6
+### Fixed
+  - Added support for newer versions of ESP32 Arduino Core
+
+----
 # 1.0.5
 ### Added
   - Fallback certificate in the event primary pinned cert fails
