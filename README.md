@@ -18,6 +18,44 @@ The library's main class implements a static `getFirmwareUpdate` function that c
 DTF_ESP32Update::getFirmwareUpdate(DTF_UPDATE_URL, "[CURRENT VERSION OF YOUR FIRMWARE]");
 ```
 
+## Options
+
+The main call to `DTF_ESP32Update::getFirmwareUpdate` has several default arguments defined. These additional arguments 
+can be passed to modify some behaviors of the library. The full signature of the call is:
+
+```cpp
+static DTF_UpdateResponse getFirmwareUpdate(
+    const char* updateUrl, 
+    const char* currentVersion, 
+    DTF_RebootOption rebootOption = DTF_RebootOption::REBOOT, 
+    DTF_SetTimeOption setTimeOption = DTF_SetTimeOption::DO_NOT_SET_TIME
+);   
+```
+
+You can change any of these options but they must be passed in the same order as defined in the signature.
+
+### Reboot Option
+**Default:** Reboot on successful update
+
+```cpp
+enum class DTF_RebootOption
+{
+    NO_REBOOT = 0,
+    REBOOT = 1,
+};
+```
+
+### Set Time Via NTP
+**Default:** Do not set time via NTP
+
+```cpp
+enum class DTF_SetTimeOption
+{
+    DO_NOT_SET_TIME = 0,
+    SET_TIME = 1,
+};
+```
+
 ## License
 MIT License
 
