@@ -92,7 +92,7 @@ DTF_UpdateResponse DTF_ESP32Update::getFirmwareUpdate(
         httpUpdate.rebootOnUpdate(false);
     }
 
-    // Create a secure client using the Let's Encrypt certificate
+    // Create a secure client using the Let's Encrypt X1 root certificate
     WiFiClientSecure client;
     log_d("Setting certificate to ISRG Root X1");
     setCertificate(client, CertificateType::ISRG_ROOT_X1);
@@ -114,7 +114,7 @@ DTF_UpdateResponse DTF_ESP32Update::getFirmwareUpdate(
             lastErr = client.lastError(errstr, sizeof(errstr));
             log_d("Update failed. Last error: %d %s", lastErr, errstr);
 
-            // Need to change the domain to ota4.deploythefleet.io
+            // Change the domain to the failover
             url.replace("ota.", "ota9.");
             log_d("Backup URL: %s", url.c_str());
             setCertificate(client, CertificateType::DEPLOY_THE_FLEET_X1);
