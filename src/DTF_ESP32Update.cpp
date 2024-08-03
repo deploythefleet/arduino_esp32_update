@@ -8,11 +8,19 @@
 #include "DTF_ESP32Update.h"
 #include <stdint.h>
 
-static char errstr[128];
-
 extern const char* isrgrootx1_cert;
 extern const char* cloudflare_cert;
 extern const char* deploy_the_fleet_cert;
+extern const int CERT_BUNDLE_ID;
+
+static char errstr[128];
+constexpr const int NTP_MAX_WAIT_TIME_IN_SECONDS = 600; // 10 minutes
+
+enum CertificateType {
+    ISRG_ROOT_X1,
+    CLOUDFLARE_ORIGIN,
+    DEPLOY_THE_FLEET_X1
+};
 
 void setSystemTime()
 {
@@ -21,7 +29,7 @@ void setSystemTime()
     log_i("Waiting for NTP time sync: ");
 
     time_t now = time(nullptr);
-    while (now < 8 * 3600 * 2) {
+    while (now < NTP_MAX_WAIT_TIME_IN_SECONDS) {
         yield();
         delay(500);
         log_d(".");
@@ -34,6 +42,23 @@ void setSystemTime()
     log_i("Current time: %s", asctime(&timeinfo));
 }
 
+void setCertificate(WiFiClientSecure& client, CertificateType certType) {
+    switch (certType) {
+        case ISRG_ROOT_X1:
+            log_d("Setting certificate to ISRG Root X1");
+            client.setCACert(isrgrootx1_cert);
+            break;
+        case CLOUDFLARE_ORIGIN:
+            log_d("Setting certificate to Cloudflare Origin");
+            client.setCACert(cloudflare_cert);
+            break;
+        case DEPLOY_THE_FLEET_X1:
+            log_d("Setting certificate to Deploy the Fleet X1");
+            client.setCACert(deploy_the_fleet_cert);
+            break;
+    }
+}
+
 DTF_UpdateResponse DTF_ESP32Update::getFirmwareUpdate(
     const char* updateUrl, 
     const char* currentVersion, 
@@ -42,6 +67,19 @@ DTF_UpdateResponse DTF_ESP32Update::getFirmwareUpdate(
 )
 {
     log_i("Checking for firmware updates");
+
+    // Append the certificate bundle ID to the update URL
+    String url = String(updateUrl);
+    url.reserve(strlen(updateUrl) + 12);
+    if(url.indexOf("?") == -1)
+    {
+        url.concat("?cb=");
+    }
+    else
+    {
+        url.concat("&cb=");
+    }
+    url.concat(CERT_BUNDLE_ID);
 
     // Ensure the current time is set and accurate
     if (setTimeOption == DTF_SetTimeOption::SET_TIME)
@@ -57,7 +95,7 @@ DTF_UpdateResponse DTF_ESP32Update::getFirmwareUpdate(
     // Create a secure client using the Let's Encrypt certificate
     WiFiClientSecure client;
     log_d("Setting certificate to ISRG Root X1");
-    client.setCACert(isrgrootx1_cert);
+    setCertificate(client, CertificateType::ISRG_ROOT_X1);
     client.setTimeout(20); // 20 second timeout
 
     // The following line invokes the update library and will send all necessary headers
@@ -69,21 +107,18 @@ DTF_UpdateResponse DTF_ESP32Update::getFirmwareUpdate(
 
     if(ret == HTTP_UPDATE_FAILED){
         log_d("Update failed. Last error: %d %s", lastErr, errstr);
-        log_d("Setting certificate to Cloudflare Origin");
-        client.setCACert(cloudflare_cert);
+        setCertificate(client, CertificateType::CLOUDFLARE_ORIGIN);
         ret = httpUpdate.update(client, updateUrl, currentVersion);
 
         if(ret == HTTP_UPDATE_FAILED){
             lastErr = client.lastError(errstr, sizeof(errstr));
             log_d("Update failed. Last error: %d %s", lastErr, errstr);
-            log_d("Setting certificate to Deploy the Fleet X1");
 
             // Need to change the domain to ota4.deploythefleet.io
-            String backupUpdateUrl = String(updateUrl);
-            backupUpdateUrl.replace("ota.", "ota4.");
-            log_d("Backup URL: %s", backupUpdateUrl.c_str());
-            client.setCACert(deploy_the_fleet_cert);
-            ret = httpUpdate.update(client, backupUpdateUrl.c_str(), currentVersion);
+            url.replace("ota.", "ota9.");
+            log_d("Backup URL: %s", url.c_str());
+            setCertificate(client, CertificateType::DEPLOY_THE_FLEET_X1);
+            ret = httpUpdate.update(client, url.c_str(), currentVersion);
         }
     }
 
