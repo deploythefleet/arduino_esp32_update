@@ -8,6 +8,17 @@ This changelog is updated with each release and should contain the following sec
   - **Security**: This notes any security-related changes
 
 ----
+# 1.0.7
+### Added
+  - Option to prevent automatic reboot of device after successful update
+  - Additional fallback server with Deploy the Fleet operated TLS certificate
+  - Library sends certificate bundle id
+
+### Changed
+  - NTP timeout reduced to 10 minutes from 16 hours
+  - Use Arduino Core logging library mechanism instead of `Serial.println` and `DTF_DEBUG` define.
+  
+----
 # 1.0.6
 ### Fixed
   - Added support for newer versions of ESP32 Arduino Core
