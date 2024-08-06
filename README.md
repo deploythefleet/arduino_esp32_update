@@ -2,6 +2,11 @@
 
 This library simplifies integration with the [Deploy the Fleet](https://deploythefleet.io) update service enabling secure OTA updates. It is meant for projects that currently use the [ESP32 Arduino Core](https://github.com/espressif/arduino-esp32) library.
 
+![badge](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/sidwarkd/c1275ec2d5e358d56f268223abeb3660/raw/DTF_ESP32Update_v1.0.7.json)
+![badge](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/sidwarkd/c1275ec2d5e358d56f268223abeb3660/raw/DTF_ESP32Update_v1.0.6.json)
+![badge](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/sidwarkd/c1275ec2d5e358d56f268223abeb3660/raw/DTF_ESP32Update_v1.0.5.json)
+![badge](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/sidwarkd/c1275ec2d5e358d56f268223abeb3660/raw/DTF_ESP32Update_v1.0.4.json)
+
 ## Requirements
 
   * Project built using [ESP32 Arduino Core](https://github.com/espressif/arduino-esp32) library
