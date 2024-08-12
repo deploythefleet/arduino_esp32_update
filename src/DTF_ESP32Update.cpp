@@ -102,13 +102,13 @@ DTF_UpdateResponse DTF_ESP32Update::getFirmwareUpdate(
     // to Deploy the Fleet for it to decision an update. Make sure the version argument
     // is always accurate as this is used to determine if a device needs an update or not.
     // Get the URL from your product dashboard in Deploy the Fleet
-    t_httpUpdate_return ret = httpUpdate.update(client, updateUrl, currentVersion);
+    t_httpUpdate_return ret = httpUpdate.update(client, url, currentVersion);
     int lastErr = client.lastError(errstr, sizeof(errstr));
 
     if(ret == HTTP_UPDATE_FAILED){
         log_d("Update failed. Last error: %d %s", lastErr, errstr);
         setCertificate(client, CertificateType::CLOUDFLARE_ORIGIN);
-        ret = httpUpdate.update(client, updateUrl, currentVersion);
+        ret = httpUpdate.update(client, url, currentVersion);
 
         if(ret == HTTP_UPDATE_FAILED){
             lastErr = client.lastError(errstr, sizeof(errstr));

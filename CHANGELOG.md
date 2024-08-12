@@ -8,6 +8,11 @@ This changelog is updated with each release and should contain the following sec
   - **Security**: This notes any security-related changes
 
 ----
+# 1.0.8
+### Fixed
+  - Bundle ID not being sent on initial OTA attempt
+
+----
 # 1.0.7
 ### Added
   - Option to prevent automatic reboot of device after successful update
