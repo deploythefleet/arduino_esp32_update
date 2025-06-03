@@ -8,6 +8,19 @@ This changelog is updated with each release and should contain the following sec
   - **Security**: This notes any security-related changes
 
 ----
+# 2.0.0
+Initial version to support v2 of Deploy the Fleet
+
+### Changed
+  - `getFirmwareUpdate` now accepts a product ID instead of a full update URL
+  - `DTF_ESP32Update::UpdateResponse` enum values differ from old `DTF_UpdateResponse` which may break existing code
+
+### Deprecated
+  - `DTF_UpdateResponse` has been deprecated in favor of `DTF_ESP32Update::UpdateResponse`
+  - `DTF_RebootOption` has been deprecated in favor of `DTF_ESP32Update::RebootOption`
+  - `DTF_SetTimeOption` has been full deprecated and removed from the API
+
+----
 # 1.0.8
 ### Fixed
   - Bundle ID not being sent on initial OTA attempt

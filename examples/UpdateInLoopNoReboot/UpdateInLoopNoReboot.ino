@@ -53,7 +53,7 @@ void loop() {
       if (!checkedForUpdates)
       {
         checkedForUpdates = true; // don't check for updates again
-        auto response = DTF_ESP32Update::getFirmwareUpdate(DTF_PRODUCT_ID, CURRENT_VERSION.c_str());
+        auto response = DTF_ESP32Update::getFirmwareUpdate(DTF_PRODUCT_ID, CURRENT_VERSION.c_str(), DTF_ESP32Update::RebootOption::NO_REBOOT);
         
         Serial.print("DTF Response: ");
         Serial.println((int)response);
