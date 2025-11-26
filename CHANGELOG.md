@@ -7,7 +7,11 @@ This changelog is updated with each release and should contain the following sec
   - **Removed**: This notes any features that have been deleted and removed from the software 
   - **Security**: This notes any security-related changes
 
-----
+# 2.0.2
+
+### Fixed
+- Handle newer error `ESP_ERR_HTTP_NOT_MODIFIED` from `esp_https_ota`
+
 # 2.0.1
 
 ### Added
