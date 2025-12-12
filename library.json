@@ -1,6 +1,6 @@
 {
   "name": "DTF_ESP32Update",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "description": "Update ESP32 devices using Deploy the Fleet service.",
   "keywords": ["esp32", "arduino", "esp-idf", "ota", "over-the-air"],
   "authors": [
@@ -12,6 +12,9 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/deploythefleet/arduino_esp32_update.git"
+  },
+  "export": {
+    "exclude": ["*.zip"]
   },
   "frameworks": ["arduino", "espidf"],
   "platforms": ["espressif32"],
